@@ -3,7 +3,7 @@ const app = express();
 const port = 5000;
 
 app.get("/api/v1/getData", (req, res) => {
-  res.send("OK Done 2");
+  res.send("OK Done 3");
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
