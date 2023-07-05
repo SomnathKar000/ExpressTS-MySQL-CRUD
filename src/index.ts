@@ -1,9 +1,6 @@
-import express from "express";
-const app = express();
-const port = 5000;
+import app from "./app";
+import pool from "./database/connection";
 
-app.get("/api/v1/getData", (req, res) => {
-  res.send("OK Done 3");
-});
+const port = 5000 || process.env.PORT;
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
