@@ -3,16 +3,22 @@ import createTable from "../models/userModel";
 import validate from "email-validator";
 import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
-import { Pool, RowDataPacket } from "mysql2/promise";
+import { PoolConnection, RowDataPacket, FieldPacket } from "mysql2/promise";
 import pool from "../database/connection";
 import bcryptjs from "bcryptjs";
+import { AuthenticatedRequest } from "../middleware/authenticationMiddleware";
+
 import { CustomError } from "../middleware/errorHandlingMiddleware";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 createTable();
 
 const jwtSecret: string = "abcdef" || process.env.SECRET_KEY;
 
-const getUser = (req: Request, res: Response) => {
+const getUser = (req: AuthenticatedRequest, res: Response) => {
+  const id = req.user.id;
   res.json({ success: true, msg: "Get user route" });
 };
 
@@ -28,15 +34,15 @@ const createUser = async (req: Request, res: Response) => {
     throw new CustomError("Password must be at least 6 characters", 404);
   }
 
-  const connection: Pool = await pool.getConnection();
-  const [rows]: [RowDataPacket[]] = await connection.query(
+  const connection: PoolConnection = await pool.getConnection();
+  const [rows]: [RowDataPacket[], FieldPacket[]] = await connection.query(
     "SELECT * FROM Users WHERE email = ?",
     [email]
   );
 
   if (rows.length > 0) {
-    throw new CustomError("Email already exists", 409);
     connection.release();
+    throw new CustomError("Email already exists", 409);
   }
 
   const id: string = uuidv4();
