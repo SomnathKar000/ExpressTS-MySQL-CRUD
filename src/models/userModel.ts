@@ -1,4 +1,5 @@
 import pool from "../database/connection";
+import { CustomError } from "../middleware/errorHandlingMiddleware";
 
 const createTable = async () => {
   try {
@@ -9,6 +10,7 @@ const createTable = async () => {
     connection.release();
   } catch (error) {
     console.log("Error creating table", error);
+    throw new CustomError("Error creating the Users table", 500);
   }
 };
 
