@@ -5,7 +5,7 @@ import { Request, Response, NextFunction } from "express";
 
 dotenv.config();
 
-const jwtSecret: string = "abcdef" || process.env.SECRET_KEY;
+const jwtSecret: string = process.env.JWT_SECRET || "default-secret-key";
 
 export interface AuthenticatedRequest extends Request {
   user?: any;
