@@ -30,7 +30,7 @@ const getUser = async (req: AuthenticatedRequest, res: Response) => {
     }
     res.status(200).json({
       success: true,
-      msg: "Successfully fetched user data",
+      message: "Successfully fetched user data",
       user: rows[0],
     });
   } catch (error) {
@@ -82,7 +82,7 @@ const createUser = async (req: Request, res: Response) => {
   connection.release();
   res
     .status(200)
-    .json({ success: true, msg: "User created successfully", token });
+    .json({ success: true, message: "User created successfully", token });
 };
 
 const updateUser = async (req: AuthenticatedRequest, res: Response) => {
@@ -145,7 +145,7 @@ const updateUser = async (req: AuthenticatedRequest, res: Response) => {
     id,
   ]);
 
-  res.status(200).json({ success: true, msg: "User updated successfully" });
+  res.status(200).json({ success: true, message: "User updated successfully" });
 };
 
 const deleteUser = async (req: AuthenticatedRequest, res: Response) => {
@@ -160,7 +160,7 @@ const deleteUser = async (req: AuthenticatedRequest, res: Response) => {
     throw new CustomError("User not found", 404);
   }
   await connection.query("DELETE FROM Users WHERE id = ?", [id]);
-  res.status(200).json({ success: true, msg: "User deleted successfully" });
+  res.status(200).json({ success: true, message: "User deleted successfully" });
 };
 
 export { getUser, createUser, updateUser, deleteUser };
