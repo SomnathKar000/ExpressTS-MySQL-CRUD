@@ -118,9 +118,12 @@ const updateBlog = async (req: AuthenticatedRequest, res: Response) => {
     query += "type = ?, ";
     queryParams.push(type);
   }
-  query = query.slice(0, -2);
-  query += "WHERE id = ? AND author_id = ?";
-  queryParams.push(blogId, userId);
+
+  const date = new Date();
+  const formattedDate: string = date.toISOString();
+  query += "updated_at = ? WHERE id = ? AND author_id = ?";
+  queryParams.push(formattedDate, blogId, userId);
+
   try {
     const connection: PoolConnection = await pool.getConnection();
     const [rows]: [RowDataPacket[], FieldPacket[]] = await connection.query(
