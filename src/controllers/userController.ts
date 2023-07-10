@@ -163,4 +163,47 @@ const deleteUser = async (req: AuthenticatedRequest, res: Response) => {
   res.status(200).json({ success: true, message: "User deleted successfully" });
 };
 
-export { getUser, createUser, updateUser, deleteUser };
+const loginUser = async (req: Request, res: Response) => {
+  const email: string = req.body.email;
+  const password: string = req.body.password;
+  if (!email || !password) {
+    throw new CustomError("Invalid credentials", 400);
+  }
+  if (!validate.validate(email)) {
+    throw new CustomError("Invalid email", 404);
+  }
+  if (password.length < 6) {
+    throw new CustomError("Password must be at least 6 characters", 404);
+  }
+  try {
+    const connection: PoolConnection = await pool.getConnection();
+    const [rows]: [RowDataPacket[], FieldPacket[]] = await connection.query(
+      "SELECT password,id FROM Users WHERE email = ?",
+      [email]
+    );
+    connection.release();
+    if (rows.length === 0) {
+      throw new CustomError("User not found", 404);
+    }
+    if (
+      !bcryptjs.compareSync(password.toString(), rows[0].password.toString())
+    ) {
+      throw new CustomError("Invalid password", 404);
+    }
+    const data = {
+      user: {
+        id: rows[0].id,
+      },
+    };
+    const token: string = jwt.sign(data, jwtSecret);
+
+    res
+      .status(200)
+      .json({ success: true, message: "User logged in successfully", token });
+  } catch (error) {
+    console.log(error);
+    throw new CustomError("User not found", 404);
+  }
+};
+
+export { getUser, createUser, updateUser, deleteUser, loginUser };

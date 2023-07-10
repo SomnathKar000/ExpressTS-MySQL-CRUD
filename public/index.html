@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ExpressTS-MySQL-CRUD - README</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1 {
+        margin-bottom: 20px;
+      }
+
+      pre {
+        background-color: #f5f5f5;
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      code {
+        font-family: Consolas, monospace;
+      }
+
+      a {
+        color: #0366d6;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      hr {
+        border: none;
+        border-top: 1px solid #ccc;
+        margin: 20px 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>ExpressTS-MySQL-CRUD</h1>
+
+    <h2>Features</h2>
+    <ul>
+      <li>User Management:</li>
+      <ul>
+        <li>User registration with email, password, and name</li>
+        <li>User authentication using JSON Web Tokens (JWT)</li>
+        <li>Update user details (email, password, name)</li>
+        <li>Delete user account</li>
+      </ul>
+      <li>Blog Management:</li>
+      <ul>
+        <li>Create a new blog post</li>
+        <li>Retrieve user-specific blogs</li>
+        <li>Retrieve all public blogs</li>
+        <li>Update blog post (title, content, type)</li>
+        <li>Delete blog post</li>
+      </ul>
+    </ul>
+
+    <h2>Prerequisites</h2>
+    <ul>
+      <li>Node.js (v14 or above)</li>
+      <li>MySQL server</li>
+    </ul>
+
+    <h2>Installation</h2>
+    <ol>
+      <li>Clone the repository:</li>
+      <pre><code>git clone https://github.com/your/repository.git</code></pre>
+      <li>Install dependencies:</li>
+      <pre><code>cd ExpressTS-MySQL-CRUD
+npm install</code></pre>
+      <li>Configure the MySQL database:</li>
+      <ul>
+        <li>Create a new MySQL database.</li>
+        <li>
+          Update the database connection settings in the <code>.env</code> file.
+        </li>
+      </ul>
+      <li>Start the application:</li>
+      <pre><code>npm run start</code></pre>
+      <li>
+        The application should now be running at
+        <a href="http://localhost:5000">http://localhost:5000</a>.
+      </li>
+    </ol>
+
+    <h2>API Endpoints</h2>
+    <h3>Hosted API (Vercel)</h3>
+    <p>
+      The base URL for all the API endpoints is
+      <a href="https://express-ts-my-sql-crud.vercel.app/api/v1"
+        >https://express-ts-my-sql-crud.vercel.app/api/v1</a
+      >.
+    </p>
+    <h3>Local Development</h3>
+    <p>
+      The base URL for all the API endpoints is
+      <a href="http://localhost:5000/api/v1">http://localhost:5000/api/v1</a>.
+    </p>
+
+    <h3>User Routes</h3>
+    <ul>
+      <li><code>POST /users</code> - Register a new user</li>
+      <li>
+        <code>POST /users/login</code> - Log in as an existing user and obtain a
+        token using email and password
+      </li>
+      <li>
+        <code>GET /users</code> - Get user details (requires authentication)
+      </li>
+      <li>
+        <code>PUT /users</code> - Update user details (requires authentication)
+      </li>
+      <li>
+        <code>DELETE /users</code> - Delete user account (requires
+        authentication)
+      </li>
+    </ul>
+
+    <h3>Blog Routes</h3>
+    <ul>
+      <li>
+        <code>POST /blogs</code> - Create a new blog post (requires
+        authentication)
+      </li>
+      <li>
+        <code>GET /blogs</code> - Get user-specific blogs (requires
+        authentication)
+      </li>
+      <li><code>GET /blogs/public</code> - Get all public blogs</li>
+      <li>
+        <code>PUT /blogs/:id</code> - Update a blog post (requires
+        authentication)
+      </li>
+      <li>
+        <code>DELETE /blogs/:id</code> - Delete a blog post (requires
+        authentication)
+      </li>
+    </ul>
+
+    <h3>Authentication</h3>
+    <p>
+      User authentication is implemented using JSON Web Tokens (JWT). When a
+      user logs in or registers, a JWTtoken is generated and returned in the
+      response. This token should be included in the
+      <code>auth_token</code> header of subsequent requests that require
+      authentication. The header should be in the following format:
+    </p>
+
+    <pre><code>auth_token: &lt;your-token&gt;</code></pre>
+
+    <h2>Error Handling</h2>
+    <p>
+      The application includes a custom error handling middleware that catches
+      and handles errors throughout the application. The middleware returns
+      appropriate HTTP status codes and error messages for each error scenario.
+    </p>
+
+    <h2>Contributing</h2>
+    <p>
+      Contributions are welcome! If you find any issues or want to add new
+      features, please open an issue or submit a pull request.
+    </p>
+
+    <h2>License</h2>
+    <p>This project is licensed under the <a href="LICENSE">MIT License</a>.</p>
+
+    <h2>Contact</h2>
+    <p>For more information or questions, feel free to reach out:</p>
+    <ul>
+      <li>Email: somnathkar2023@gmail.com</li>
+      <li>
+        LinkedIn:
+        <a href="https://www.linkedin.com/in/somnath-kar-aa73aa1a3"
+          >Somnath Kar</a
+        >
+      </li>
+      <li>
+        GitHub: <a href="https://github.com/SomnathKar000">SomnathKar000</a>
+      </li>
+    </ul>
+  </body>
+</html>
