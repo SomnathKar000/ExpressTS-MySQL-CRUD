@@ -106,14 +106,17 @@ const updateBlog = async (req: AuthenticatedRequest, res: Response) => {
   }
   let query: string = "UPDATE Blogs SET ";
   let queryParams: string[] = [];
+
   if (title !== "") {
     query += "title = ?, ";
     queryParams.push(title);
   }
+
   if (content !== "") {
     query += "content = ?, ";
     queryParams.push(content);
   }
+
   if (type !== undefined) {
     query += "type = ?, ";
     queryParams.push(type);
