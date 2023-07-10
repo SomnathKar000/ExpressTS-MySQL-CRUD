@@ -1,5 +1,19 @@
 {
   "version": 2,
   "builds": [{ "src": "src/index.ts", "use": "@vercel/node" }],
-  "routes": [{ "src": "/(.*)", "dest": "src/index.ts" }]
+  "routes": [
+    { "src": "/api/(.*)", "dest": "src/index.ts" },
+    { "src": "/(.*)", "dest": "public/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/DMSans-Regular.ttf",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "font-src 'self' https://express-ts-my-sql-crud.vercel.app"
+        }
+      ]
+    }
+  ]
 }
