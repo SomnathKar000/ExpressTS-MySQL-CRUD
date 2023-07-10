@@ -5,13 +5,14 @@ import userRoutes from "./routes/userRoutes";
 import blogRoutes from "./routes/blogRoutes";
 import dotenv from "dotenv";
 import cors from "cors";
+import path from "path";
 import { errorHandlingMiddleware } from "./middleware/errorHandlingMiddleware";
 
 dotenv.config();
 
 const app = express();
 
-app.use(express.static("public"));
+app.use(express.static(path.join(path.dirname(__dirname), "public")));
 
 app.use(express.json());
 app.use(cors());
